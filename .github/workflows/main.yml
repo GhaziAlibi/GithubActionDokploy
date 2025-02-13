@@ -40,7 +40,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./Dockerfile  # Make sure your Dockerfile is in the correct location
+          file: ./GithubActionDokploy/Dockerfile  # Make sure your Dockerfile is in the correct location
           push: true
           tags: |
             alibighazi/githubactiondokploy:latest
