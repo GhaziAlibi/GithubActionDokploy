@@ -3,7 +3,7 @@ name: Docker Build and Publish .NET Core
 on:
   push:
     branches:
-      - main # Or your main branch name
+      - master # Or your main branch name
     tags:
       - 'v*' # Optional: Trigger on tags like v1.0.0, v1.0.1, etc.
 
