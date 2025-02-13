@@ -43,8 +43,8 @@ jobs:
           file: ./Dockerfile  # Make sure your Dockerfile is in the correct location
           push: true
           tags: |
-            alibighazi/GithubActionDokploy:latest
-            alibighazi/GithubActionDokploy:${{ github.sha }}
+            alibighazi/githubactiondokploy:latest
+            alibighazi/githubactiondokploy:${{ github.sha }}
             ${{ steps.determine_tag.outputs.image_tag }}
 
       - name: Image digest
@@ -57,7 +57,7 @@ jobs:
         if: github.event_name == 'push'
         run: |
           if [[ startsWith(github.ref, 'refs/tags/') ]]; then
-            echo "::set-output name=image_tag::alibighazi/GithubActionDokploy:${{ github.ref_name }}"
+            echo "::set-output name=image_tag::alibighazi/githubactiondokploy:${{ github.ref_name }}"
           else
-            echo "::set-output name=image_tag::alibighazi/GithubActionDokploy:latest"
+            echo "::set-output name=image_tag::alibighazi/githubactiondokploy:latest"
           fi
