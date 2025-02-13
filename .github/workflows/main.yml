@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master # Or your main branch name
-    tags:
-      - 'v*' # Optional: Trigger on tags like v1.0.0, v1.0.1, etc.
 
 jobs:
   build-and-publish:
@@ -18,8 +16,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Restore .NET Core app
+        run: dotnet restore
+
       - name: Build .NET Core app
         run: dotnet build --configuration Release
+
+      - name: Test .NET Core app
+        run: dotnet test --configuration Release --no-build
 
       - name: Publish .NET Core app
         run: dotnet publish -c Release -o ./publish
@@ -46,18 +50,3 @@ jobs:
             alibighazi/githubactiondokploy:latest
             alibighazi/githubactiondokploy:${{ github.sha }}
             ${{ steps.determine_tag.outputs.image_tag }}
-
-      - name: Image digest
-        if: ${{ always() }}
-        run: |
-          echo "Image digest: ${{ steps.build-and-push.outputs.digest }}"
-
-      - name: Determine image tag
-        id: determine_tag
-        if: github.event_name == 'push'
-        run: |
-          if [[ startsWith(github.ref, 'refs/tags/') ]]; then
-            echo "::set-output name=image_tag::alibighazi/githubactiondokploy:${{ github.ref_name }}"
-          else
-            echo "::set-output name=image_tag::alibighazi/githubactiondokploy:latest"
-          fi
