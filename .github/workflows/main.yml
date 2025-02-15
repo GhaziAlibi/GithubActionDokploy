@@ -47,12 +47,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Log in to GitHub Container Registry (GHCR)
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
@@ -60,11 +59,11 @@ jobs:
           context: .
           file: ./GithubActionDokploy/Dockerfile  # Make sure your Dockerfile is in the correct location
           push: true
-          cache-from: type=registry,ref=ghcr.io/ghazialibi/githubactiondokploy:buildcache
-          cache-to: type=registry,ref=ghcr.io/ghazialibi/githubactiondokploy:buildcache,mode=max
+          cache-from: type=registry,ref=alibighazi/githubactiondokploy:buildcache
+          cache-to: type=registry,ref=alibighazi/githubactiondokploy:buildcache,mode=max
           tags: |
-            ghcr.io/ghazialibi/githubactiondokploy:latest
-            ghcr.io/ghazialibi/githubactiondokploy:${{ github.sha }}
+            alibighazi/githubactiondokploy:latest
+            alibighazi/githubactiondokploy:${{ github.sha }}
  
   deploy:
     needs: build-and-push
