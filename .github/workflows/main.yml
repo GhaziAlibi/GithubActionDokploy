@@ -67,7 +67,7 @@ jobs:
             ghcr.io/ghazialibi/githubactiondokploy:${{ github.sha }}
  
   deploy:
-    needs: build-and-test
+    needs: build-and-push
     runs-on: ubuntu-latest
     permissions:
       contents: read
