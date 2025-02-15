@@ -33,7 +33,6 @@ jobs:
           path: TestResults/*.trx
 
 
-
   build-and-push:
     needs: build-and-test
     runs-on: ubuntu-latest
@@ -66,3 +65,24 @@ jobs:
           tags: |
             ghcr.io/ghazialibi/githubactiondokploy:latest
             ghcr.io/ghazialibi/githubactiondokploy:${{ github.sha }}
+ 
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Trigger Dokploy Deployment
+        uses: dokploy/dokploy-action@v1
+        run: |
+          curl -X 'POST' \
+            'https://dokploy.alibighazi.me/api/trpc/application.deploy' \
+            -H 'accept: application/json' \
+            -H 'Authorization: Bearer ${{ secrets.DOKPLOY_TOKEN }}' \
+            -H 'Content-Type: application/json' \
+            -d '{
+                "json":{
+                    "applicationId": "fM1LBspMIhYgoq5cbUomO"
+                }
+            }' 
