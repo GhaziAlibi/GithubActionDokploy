@@ -61,5 +61,5 @@ jobs:
           cache-from: type=registry,ref=alibighazi/githubactiondokploy:buildcache
           cache-to: type=registry,ref=alibighazi/githubactiondokploy:buildcache,mode=max
           tags: |
-            ghcr.io/GhaziAlibi/githubactiondokploy:latest
-            ghcr.io/GhaziAlibi/githubactiondokploy:${{ github.sha }}
+            ghcr.io/ghazialibi/githubactiondokploy:latest
+            ghcr.io/ghazialibi/githubactiondokploy:${{ github.sha }}
