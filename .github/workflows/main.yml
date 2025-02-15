@@ -61,8 +61,8 @@ jobs:
           context: .
           file: ./GithubActionDokploy/Dockerfile  # Make sure your Dockerfile is in the correct location
           push: true
-          cache-from: type=registry,ref=alibighazi/githubactiondokploy:buildcache
-          cache-to: type=registry,ref=alibighazi/githubactiondokploy:buildcache,mode=max
+          cache-from: type=registry,ref=ghcr.io/ghazialibi/githubactiondokploy:buildcache
+          cache-to: type=registry,ref=ghcr.io/ghazialibi/githubactiondokploy:buildcache,mode=max
           tags: |
             ghcr.io/ghazialibi/githubactiondokploy:latest
             ghcr.io/ghazialibi/githubactiondokploy:${{ github.sha }}
