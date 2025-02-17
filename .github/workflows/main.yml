@@ -50,7 +50,7 @@ jobs:
       
       - uses: cschleiden/replace-tokens@v1
         with:
-          files: '["./appsettings.json"]'
+          files: '**/appsettings.json'
         env:
           APP_VERSION: ${{ vars.APP_VERSION }}
 
