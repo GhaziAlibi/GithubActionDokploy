@@ -45,6 +45,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
       
+      - name: Debug APP_VERSION
+        run: echo "APP_VERSION=${{ env.APP_VERSION }}"
+      
       - uses: cschleiden/replace-tokens@v1
         with:
           files: '["**/appsettings.json"]'
