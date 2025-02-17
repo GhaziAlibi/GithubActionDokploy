@@ -84,7 +84,7 @@ jobs:
           curl -X 'POST' \
             'https://dokploy.alibighazi.me/api/trpc/application.deploy' \
             -H 'accept: application/json' \
-            -H 'Authorization: Bearer ${{ secrets.DOKPLOY_TOKEN }}' \
+            -H 'Authorization: Bearer ${{ secrets.DOKPLOY_AUTH_TOKEN }}' \
             -H 'Content-Type: application/json' \
             -d '{
                 "json":{
