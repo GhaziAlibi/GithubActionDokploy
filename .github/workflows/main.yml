@@ -8,6 +8,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    environment: dev
     permissions:
       contents: read
       packages: write
@@ -43,6 +44,12 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+      
+      - uses: cschleiden/replace-tokens@v1
+        with:
+          files: 'appsettings.json'
+        env:
+          APP_VERSION: ${{ env.APP_VERSION }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -73,8 +80,14 @@ jobs:
       packages: write
     steps:
       - name: Trigger Dokploy Deployment
-        uses: benbristow/dokploy-deploy-action@0.0.1
-        with:
-          auth_token: ${{ secrets.DOKPLOY_AUTH_TOKEN }}
-          application_id: ${{ secrets.DOKPLOY_APPLICATION_ID }}
-          dokploy_url: ${{ secrets.DOKPLOY_URL }}
+        run: |
+          curl -X 'POST' \
+            'https://dokploy.alibighazi.me/api/trpc/application.deploy' \
+            -H 'accept: application/json' \
+            -H 'Authorization: Bearer ${{ secrets.DOKPLOY_TOKEN }}' \
+            -H 'Content-Type: application/json' \
+            -d '{
+                "json":{
+                    "applicationId": "fM1LBspMIhYgoq5cbUomO"
+                }
+            }' 
