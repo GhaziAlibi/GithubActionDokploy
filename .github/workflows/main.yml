@@ -8,7 +8,6 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    environment: dev
     permissions:
       contents: read
       packages: write
@@ -37,6 +36,7 @@ jobs:
   build-and-push:
     needs: build-and-test
     runs-on: ubuntu-latest
+    environment: dev
     permissions:
       contents: read
       packages: write
