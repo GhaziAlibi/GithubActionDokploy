@@ -81,6 +81,24 @@ jobs:
       contents: read
       packages: write
     steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+
+      - name: Create EF Migrations bundle
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet ef migrations bundle --project GithubActionDokploy/GithubActionDokploy.csproj --output-dir efbundle
+
+      - name: Run EF migrations
+        run: ./efbundle --connection "${{ secrets.DEFAULT_CONNECTION_EXTERNAL }}"   
+
       - name: Trigger Dokploy Deployment
         run: |
           curl -X 'POST' \
