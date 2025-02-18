@@ -94,7 +94,7 @@ jobs:
       - name: Create EF Migrations bundle
         run: |
           dotnet tool install --global dotnet-ef
-          dotnet ef migrations bundle --project GithubActionDokploy/GithubActionDokploy.csproj --output-dir efbundle
+          dotnet ef migrations bundle --project GithubActionDokploy/GithubActionDokploy.csproj --output efbundle
 
       - name: Run EF migrations
         run: ./efbundle --connection "${{ secrets.DEFAULT_CONNECTION_EXTERNAL }}"   
